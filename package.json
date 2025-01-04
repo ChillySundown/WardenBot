@@ -1,0 +1,16 @@
+{
+  "name": "wardenbot",
+  "version": "1.0.0",
+  "description": "Tired of all those bots weighing down your Discord server? Wish they would just...disappear? Well, with Warden, you can eliminate a bot as soon as they make themselves known on the server! No more bot spamming messages thanks to Warden",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.7"
+  }
+}
