@@ -12,6 +12,7 @@ const warden = new Client({
 warden.login(process.env.DISCORD_TOKEN);
 warden.on('ready', (c) => {
     console.log(`${c.user.tag} is ready to rumble`);
+    c.channels.cache.get(process.env.CHANNEL_ID).send('IRONHIDE: LOCKED AND LOADED');
 })
 
 warden.on('messageCreate', async (msg) => {
