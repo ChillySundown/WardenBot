@@ -17,10 +17,10 @@ warden.on('ready', (c) => {
 
 warden.on('messageCreate', async (msg) => {
     const triggered = triggerWords.some(word => msg.content.toLowerCase().includes(word));
-    const notABot = triggerWords.some(word => msg.content.toLowerCase().includes('i am not a bot'))
+    const userTimeOnServer = convertMiliToDays(Date.now() - parseInt(msg.member.joinedTimestamp));
     console.log("Triggered: " + triggered);
-    console.log("Not a bot: " + notABot);
-    if(triggered && !notABot && msg.author.id != msg.guild.ownerId) {
+    console.log("Days on Server:" + userTimeOnServer);
+    if(triggered && userTimeOnServer < 2.00) {
         try {
             await msg.delete();
             await msg.guild.members.ban(msg.author, {reason : 'Soliciting on server'})
@@ -31,3 +31,7 @@ warden.on('messageCreate', async (msg) => {
         }
     }
 });
+
+function convertMiliToDays(miliseconds) {
+    return miliseconds / 1000 / 60 / 60 / 24;
+}
