@@ -20,7 +20,7 @@ warden.on('messageCreate', async (msg) => {
     const userTimeOnServer = convertMiliToDays(Date.now() - parseInt(msg.member.joinedTimestamp));
     console.log("Triggered: " + triggered);
     console.log("Days on Server:" + userTimeOnServer);
-    if(triggered && userTimeOnServer < 2.00) {
+    if(triggered && userTimeOnServer < 30.0) {
         try {
             await msg.delete();
             await msg.guild.members.ban(msg.author, {reason : 'Soliciting on server'})
