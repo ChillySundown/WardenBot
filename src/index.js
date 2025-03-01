@@ -1,6 +1,6 @@
 require('dotenv').config()
-const {Client, IntentsBitField, Message} = require('discord.js')
-const triggerWords = ['give away', 'dm me', 'giving away for free', 'macbook 2020', 'sell my tickets', 'sell']
+const {Client, IntentsBitField, Message, EmbedBuilder} = require('discord.js')
+const triggerWords = ['give away', 'dm me', 'for free', 'macbook 2020', 'sell', 'giving away']
 const warden = new Client({
     intents: [
         IntentsBitField.Flags.GuildMessages,
@@ -20,15 +20,24 @@ warden.on('messageCreate', async (msg) => {
     const userTimeOnServer = convertMiliToDays(Date.now() - parseInt(msg.member.joinedTimestamp));
     console.log("Triggered: " + triggered);
     console.log("Days on Server:" + userTimeOnServer);
-    if(triggered && userTimeOnServer < 30.0) {
+    var nickname = msg.member.nickname;
+    if(triggered && userTimeOnServer < 100.0) {
         try {
             await msg.delete();
-            await msg.guild.members.ban(msg.author, {reason : 'Soliciting on server'})
-            await msg.channel.send(`${msg.author.username} deleted from server for: ${msg.guild.bans.fetch(msg.author.id).reason}`)
-            console.log(`Bot banned for ${msg.guild.bans.fetch(msg.author.id).reason}`)
+            await msg.guild.members.ban(msg.member, {reason: 'Soliciting on server'});
+            if(nickname != null)
+                await msg.channel.send(`${msg.member.nickname} deleted from server for: ${msg.guild.bans.fetch(msg.member.id).reason}`)
+            else 
+                await msg.channel.send(`Bot vaporized from server for soliciting!`);
+            console.log(`Bot banned for ${msg.guild.bans.fetch(msg.member.id).reason}`);
         } catch(error) {
-            console.log(`Couldn\'t delete bot because of: ${error}`)
+            console.log(`Couldn\'t delete bot because of: ${error}`);
         }
+    }
+});
+warden.on('messageCreate', async (ping) => {
+    if(ping.content.toLowerCase().startsWith('@ironhide')) {
+        ping.reply('All\'s well for now! Here\'s a status report');
     }
 });
 
