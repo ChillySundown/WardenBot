@@ -29,15 +29,11 @@ warden.on('messageCreate', async (msg) => {
     console.log("Triggered: " + triggered);
     console.log("Days on Server:" + userTimeOnServer);
     
-    const nickname = author.nickname;
 
     if(triggered && userTimeOnServer < 100.0) {
         try {
-            await author.ban({deleteMessageDays: 7, reason: 'Soliciting on server'});
-            if(nickname != null)
-                await channel.send(`${nickname} deleted from server for: ${msg.guild.bans.fetch(author.id).reason}`)
-            else 
-                await channel.send(`Bot vaporized from server for soliciting!`);
+            await author.ban({deleteMessageSeconds: 60 * 60 * 24 * 7, reason: 'Soliciting on server'});
+            await channel.send(`Bot vaporized from server for soliciting!`);
             console.log(`Bot banned for ${msg.guild.bans.fetch(msg.member.id).reason}`);
         } catch(error) {
             console.log(`Couldn\'t delete bot because of: ${error}`);
@@ -52,8 +48,4 @@ warden.on('messageCreate', async (ping) => {
 
 function convertMiliToDays(miliseconds) {
     return miliseconds / 1000 / 60 / 60 / 24;
-}
-
-function display_report() {
-    
 }

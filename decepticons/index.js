@@ -13,9 +13,10 @@ const decepticon = new Client({
         IntentsBitField.Flags.GuildMessageTyping
     ]
 })
+console.log(process.env.TOKEN_2); //Only works in a node terminal, investigate more later
 decepticon.login(process.env.TOKEN_2);
 decepticon.on('ready', (c) => {
-    console.log(`${c.user.tag} is ready to rumble`);
+    console.log(`${c.user.tag} is ready to decieve`);
 })
 decepticon.on('messageCreate', msg => {
     if(!msg.author.bot) {
