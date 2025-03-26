@@ -13,7 +13,7 @@ const decepticon = new Client({
         IntentsBitField.Flags.GuildMessageTyping
     ]
 })
-console.log(process.env.TOKEN_2); //Only works in a node terminal, investigate more later
+//console.log(process.env.TOKEN_2); //Only works in a node terminal, investigate more later
 decepticon.login(process.env.TOKEN_2);
 decepticon.on('ready', (c) => {
     console.log(`${c.user.tag} is ready to decieve`);
