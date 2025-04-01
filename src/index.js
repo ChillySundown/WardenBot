@@ -29,9 +29,8 @@ warden.on('messageCreate', async (msg) => {
     const triggered = triggerWords.some(word => msg.content.toLowerCase().includes(word));
     const userTimeOnServer = convertMiliToDays(Date.now() - parseInt(msg.member.joinedTimestamp));
 
-    console.log(id);
-    console.log("Triggered: " + triggered);
-    console.log("Days on Server:" + userTimeOnServer);
+    console.log("Triggered: " + triggered + "\n");
+    console.log("Days on Server:  " + userTimeOnServer + "\n");
     
 
     if(triggered && userTimeOnServer < 100.0) {
@@ -42,6 +41,8 @@ warden.on('messageCreate', async (msg) => {
         } catch(error) {
             console.log(`Couldn\'t delete bot because of: ${error}`);
         }
+        await msg.delete(); //This way, in case there's an error, the spam message will automatically be deleted.
+        console.log("message delete");
     }
 });
 warden.on('messageCreate', async (ping) => {
