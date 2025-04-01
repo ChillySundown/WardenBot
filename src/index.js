@@ -1,6 +1,7 @@
 require('dotenv').config() //Connects the .env file with bot token to code.
 const {Client, IntentsBitField, Message, EmbedBuilder} = require('discord.js')
 
+
 const { token } = process.env.DISCORD_TOKEN;
 
 const triggerWords = ['give away', 'dm me', 'for free', 'macbook 2020', 'sell', 'giving away'] //An array of trigger words that historically appread in scam messages
@@ -46,7 +47,7 @@ warden.on('messageCreate', async (msg) => {
     }
 });
 warden.on('messageCreate', async (ping) => {
-    if(ping.content.toLowerCase().startsWith('@test')) {
+    if(ping.mentions.has(warden.user.id)) {
         ping.reply('All\'s well for now! Here\'s a status report:');
     }
 });
